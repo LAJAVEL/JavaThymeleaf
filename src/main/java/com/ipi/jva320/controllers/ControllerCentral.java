@@ -1,25 +1,25 @@
 package com.ipi.jva320.controllers;
 
-import com.ipi.jva320.exception.SalarieException;
+import com.ipi.jva320.exception.ExceptionS;
 import com.ipi.jva320.model.SalarieAideADomicile;
 import com.ipi.jva320.service.SalarieAideADomicileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+//ajout d'un comm pour commit
 
 @Controller
-public class ControllerIndex {
+public class ControllerCentral {
 
     private final SalarieAideADomicileService salarieAideADomicileService;
 
     @Autowired
-    public ControllerIndex(SalarieAideADomicileService salarieAideADomicileService) {
+    public ControllerCentral(SalarieAideADomicileService salarieAideADomicileService) {
         this.salarieAideADomicileService = salarieAideADomicileService;
     }
 
@@ -66,13 +66,13 @@ public class ControllerIndex {
 
     }
     @PostMapping("salaries/aide/new")
-    public String sauvegarderSalarie(SalarieAideADomicile salarie) throws SalarieException {
+    public String sauvegarderSalarie(SalarieAideADomicile salarie) throws ExceptionS {
         SalarieAideADomicile newSalarie = salarieAideADomicileService.creerSalarieAideADomicile(salarie);
         return "redirect:/salaries/" + newSalarie.getId();
     }
     @GetMapping("salaries/{id}/delete")
 
-    public String supprimerSalarie(@PathVariable Long id) throws SalarieException {
+    public String supprimerSalarie(@PathVariable Long id) throws ExceptionS {
         salarieAideADomicileService.deleteSalarieAideADomicile(id);
         return "redirect:/salaries";
     }
@@ -100,7 +100,7 @@ public class ControllerIndex {
     }
 
     @PostMapping("/salaries/{id}/modifier")
-    public String soumettreModification(@ModelAttribute SalarieAideADomicile salarieModifie) throws SalarieException {
+    public String soumettreModification(@ModelAttribute SalarieAideADomicile salarieModifie) throws ExceptionS {
         salarieAideADomicileService.updateSalarieAideADomicile(salarieModifie);
         return "redirect:/salaries";
     }
